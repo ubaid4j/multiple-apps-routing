@@ -1,0 +1,42 @@
+server:
+  port: 4000
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: red-app-route
+          uri: http://localhost:4200
+          predicates:
+            - Host=red.mra.io:4000
+        - id: blue-app-route
+          uri: http://localhost:50121
+          predicates:
+            - Host=blue.mra.io:4000
+        - id: green-app-route
+          uri: http://localhost:50212
+          predicates:
+            - Host=green.mra.io:4000
+        - id: no-ops
+          uri: no://op
+          predicates:
+            - Path=/**
+          filters:
+            - name: SetStatus
+              args:
+                status: 404
+  docker:
+    compose:
+      file: api-gateway/compose.yml
+      start:
+        skip: never
+      lifecycle-management: start_only
+      enabled: false
+
+logging:
+  level:
+    root: debug
+    web: DEBUG
+    'dev.ubaid': DEBUG
+    'org.springframework.cloud': DEBUG
+    'org.springframework.web': DEBUG
