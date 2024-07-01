@@ -20,3 +20,15 @@ spring:
   profiles:
     active: #spring.profiles.active#  
     default: dev
+  security:
+#    TODO fix the client creds
+    oauth2:
+      client:
+        registration:
+          customer1:
+            client-id: ms1
+            client-secret: szCAVPumWkSvvmDn0llCmmZJzN9X3ml8
+            scope: openid
+        provider:
+          customer1:
+            issuerUri: ${AUTH_SERVER_URL:http://localhost:9080}/realms/customer1

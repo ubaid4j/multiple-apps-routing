@@ -35,8 +35,9 @@ spring:
 
 logging:
   level:
-    root: debug
+    root: info
     web: DEBUG
     'dev.ubaid': DEBUG
     'org.springframework.cloud': DEBUG
     'org.springframework.web': DEBUG
+    'org.springframework.security': DEBUG
