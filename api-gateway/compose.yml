@@ -1,7 +1,7 @@
 services:
   keycloak:
     image: quay.io/keycloak/keycloak:25.0.1
-    command: 'start-dev --import-realm'
+    command: 'start-dev --http-port 38218 --import-realm'
     volumes:
       - ./src/main/docker/realm-config:/opt/keycloak/data/import
       - ./src/main/docker/realm-config/keycloak-health-check.sh:/opt/keycloak/health-check.sh
@@ -10,15 +10,10 @@ services:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
       - KC_FEATURES=scripts
-      - KC_HTTP_PORT=9080
-      - KC_HTTPS_PORT=9443
+      - KC_HTTP_PORT=38218
       - KC_HEALTH_ENABLED=true
-      - KC_HTTP_MANAGEMENT_PORT=9990
-    # If you want to expose these ports outside your dev PC,
-    # remove the "127.0.0.1:" prefix
     ports:
-      - 127.0.0.1:9080:9080
-      - 127.0.0.1:9443:9443
+      - "127.0.0.1:38218:38218"
     healthcheck:
       test: 'bash /opt/keycloak/health-check.sh'
       interval: 5s

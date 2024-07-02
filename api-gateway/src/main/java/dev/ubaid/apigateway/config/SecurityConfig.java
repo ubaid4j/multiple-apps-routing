@@ -31,7 +31,4 @@ public class SecurityConfig {
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .build();
     }
-    
-//    TODO add a filter that redirect a request to oath2/authorization endpoint if a request is not authenticated
-//    TODO Authorization failed: Access Denied (redirect request to oath2/authorization)
 }
