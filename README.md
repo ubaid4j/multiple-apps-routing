@@ -1,5 +1,9 @@
 ### Abstract
-The Idea is to have multiple apps running behind the API-Gateway and implement security concerns (SSO) in the api-gateway itself.
+The Idea is to have multiple apps running behind the API-Gateway and implement 
+1. security concerns (SSO) 
+
+in the api-gateway itself.
+</br>
 </br>
 So, let suppose we have following three UI apps:
 1. RED (Angular) (URL: red.mra.io)

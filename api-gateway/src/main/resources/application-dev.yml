@@ -31,13 +31,13 @@ spring:
       start:
         skip: never
       lifecycle-management: start_only
-      enabled: false
+      enabled: true
 
 logging:
   level:
-    root: info
-    web: DEBUG
+    root: DEBUG
+    web: TRACE
     'dev.ubaid': DEBUG
-    'org.springframework.cloud': DEBUG
-    'org.springframework.web': DEBUG
-    'org.springframework.security': DEBUG
+    'org.springframework.cloud': TRACE
+    'org.springframework.web': TRACE
+    'org.springframework.security': TRACE
