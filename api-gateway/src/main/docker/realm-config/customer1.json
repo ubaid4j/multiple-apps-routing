@@ -379,9 +379,9 @@
   "users" : [ {
     "id" : "050f2689-b6bb-4b90-9000-e6f77c1aa2bc",
     "username" : "admin",
-    "firstName" : "ubaid",
-    "lastName" : "rehman",
-    "email" : "ubaid4j@gmail.com",
+    "firstName" : "admin",
+    "lastName" : "admin",
+    "email" : "admin@yopmail.com",
     "emailVerified" : true,
     "createdTimestamp" : 1719900118769,
     "enabled" : true,
