@@ -20,6 +20,16 @@ spring:
   profiles:
     active: #spring.profiles.active#  
     default: dev
+  session:
+    redis:
+      namespace: mra:gateway
+    timeout: 5m
+  data:
+    redis:
+      host: localhost
+      port: 50451
+      connect-timeout: 2s
+      timeout: 1s
   security:
     oauth2:
       client:
@@ -33,5 +43,10 @@ spring:
             issuerUri: ${AUTH_SERVER_URL:http://localhost:38218}/realms/customer1
 
 
-application:
-  domain: .mra.io
+#application:
+#  domain: .mra.io
+server:
+  reactive:
+    session:
+      cookie:
+        domain: .mra.io

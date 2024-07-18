@@ -25,6 +25,9 @@ spring:
             - name: SetStatus
               args:
                 status: 404
+      default-filters: 
+        - name: SaveSession
+        - name: TokenRelay
   docker:
     compose:
       file: api-gateway/compose.yml

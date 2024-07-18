@@ -14,7 +14,7 @@ public class WebConfig {
      * @param domain: domain name
      * @return return a web session manager that add the domain in the cookie so that we can use SESSION cookie across subdomains
      */
-    @Bean
+//    @Bean
     WebSessionManager webSessionManager(@Value("${application.domain}") String domain) {
         DefaultWebSessionManager webSessionManager = new DefaultWebSessionManager();
         CookieWebSessionIdResolver webSessionIdResolver = (CookieWebSessionIdResolver) webSessionManager.getSessionIdResolver();

@@ -21,3 +21,17 @@ services:
       timeout: 5s
       retries: 20
       start_period: 30s
+  redis:
+    image: "redis:7.2.5"
+    container_name: "mra-redis"
+    ports:
+      - "127.0.0.1:50451:6379"
+    volumes:
+      - /tmp/mra-redis/:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+      start_period: 10s
+      interval: 5s
+      retries: 30
+      timeout: 5s
+
