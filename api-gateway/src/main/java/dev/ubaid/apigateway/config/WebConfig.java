@@ -5,14 +5,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.server.session.CookieWebSessionIdResolver;
 import org.springframework.web.server.session.DefaultWebSessionManager;
-import org.springframework.web.server.session.WebSessionIdResolver;
 import org.springframework.web.server.session.WebSessionManager;
 
 @Configuration
 public class WebConfig {
 
     /**
-     * 
      * @param domain: domain name
      * @return return a web session manager that add the domain in the cookie so that we can use SESSION cookie across subdomains
      */
