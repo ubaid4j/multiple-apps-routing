@@ -50,3 +50,4 @@ Add following at the bottom of `/etc/hosts`
 2. `npm start`
 
 You can access [red-app](http://red.mra.io:4000), [blue-app](http://blue.mra.io:4000) and [green-app](http://green.mra.io:4000).
+Credentials (username: admin, password: Password@1)

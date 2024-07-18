@@ -6,6 +6,9 @@
 </head>
 <body style="background-color: blue">
     <h1 style="color: white">Blue App</h1>
+    <h3>
+        <span id="username" style="color: seashell"></span>
+    </h3>
     <div>
         <h4><a href="http://red.mra.io:4000" style="color: white">Go to Red App</a></h4>
         <h4><a href="http://green.mra.io:4000" style="color: white">Go to Green App</a></h4>
@@ -16,4 +19,10 @@
         </form>
     </div>
 </body>
+
+<script>
+    fetch("/api/users/current").then(response => response.json()).then(user => {
+        document.getElementById('username').textContent = 'Hello ' + user['name'];
+    });
+</script>
 </html>
