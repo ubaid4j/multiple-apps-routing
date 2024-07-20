@@ -1,0 +1,91 @@
+name: Test and Build API gateway
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ubaid4j/multiple-apps-routing/api-gateway
+  VERSION: 0.0.1-SNAPSHOT
+
+on:
+  push:
+    paths:
+      - 'api-gateway/**'
+    branches:
+      - main
+
+defaults:
+  run:
+    working-directory: ./api-gateway
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+      - name: set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 22
+          cache: maven
+      - name: Code vulnerability scanning
+        uses: anchore/scan-action@v3
+        id: scan
+        with:
+          path: "${{ github.workspace }}/api-gateway"
+          only-fixed: true
+          fail-build: true
+          severity-cutoff: critical
+      - name: Upload vulnerability report
+        uses: github/codeql-action/upload-sarif@v3
+        if: success()
+        with:
+          sarif_file: ${{ steps.scan.outputs.sarif }}
+      - name: Build and Test
+        run: |
+          ./mvnw -Pprod verify
+  package:
+    name: Package and Publish
+    needs: [build]
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+      security-events: write
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+      - name: Setup JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: 22
+          cache: maven
+      - name: Build Container Image
+        run: |
+          ./mvnw -Pprod -Pnative -Pci spring-boot:build-image
+      - name: OCI Image vulnerability scanning
+        uses: anchore/scan-action@v3
+        id: scan
+        with:
+          image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+          fail-build: true
+          only-fixed: true
+          severity-cutoff: critical
+      - name: Upload vulnerability report
+        uses: github/codeql-action/upload-sarif@v3
+        if: success()
+        with:
+          sarif_file: ${{ steps.scan.outputs.sarif }}
+      - name: Login to container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish container image
+        run: docker push ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}

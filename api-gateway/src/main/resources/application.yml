@@ -25,7 +25,7 @@ spring:
   session:
     redis:
       namespace: mra:gateway
-    timeout: 2m
+    timeout: 5m
   data:
     redis:
       host: localhost

@@ -7,8 +7,8 @@ in the api-gateway itself.
 </br>
 So, let suppose we have following three UI apps:
 1. RED (Angular) (URL: red.mra.io)
-2. BLUE (Halidon) (URL: blue.mra.io)
-3. GREEN (thymeleaf) (URL: green.mra.io)
+2. BLUE (thymeleaf) (URL: blue.mra.io)
+3. GREEN (Angular) (URL: green.mra.io)
 
 
 and following microservice

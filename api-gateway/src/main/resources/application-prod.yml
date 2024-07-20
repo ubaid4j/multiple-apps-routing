@@ -1,0 +1,40 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: red-app-route
+          uri: ${RED_APP_URL}
+          predicates:
+            - Host=red.mra.io
+        - id: blue-app-route
+          uri: ${BLUE_APP_URL}
+          predicates:
+            - Host=blue.mra.io
+        - id: green-app-route
+          uri: ${GREEN_APP_URL}
+          predicates:
+            - Host=green.mra.io
+        - id: no-ops
+          uri: no://op
+          predicates:
+            - Path=/**
+          filters:
+            - name: SetStatus
+              args:
+                status: 404
+      default-filters:
+        - name: SaveSession
+        - name: TokenRelay
+  docker:
+    compose:
+      enabled: false
+
+logging:
+  level:
+    'dev.ubaid': DEBUG
+    'org.springframework.cloud': TRACE
+    'org.springframework.web': TRACE
+    'org.springframework.security': TRACE
