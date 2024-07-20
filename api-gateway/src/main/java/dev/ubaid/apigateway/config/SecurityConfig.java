@@ -17,7 +17,7 @@ import org.springframework.security.web.server.authentication.logout.ServerLogou
 public class SecurityConfig {
     
     private static final String[] PERMITTED_PATH = {
-            "favicon.ico"
+            "favicon.ico", "/management/**"
     };
     
     private static final Customizer<ServerHttpSecurity.AuthorizeExchangeSpec> AUTHORIZE_EXCHANGE = (spec) -> spec
