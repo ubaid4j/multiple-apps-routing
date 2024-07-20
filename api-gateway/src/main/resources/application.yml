@@ -42,9 +42,6 @@ spring:
           customer1:
             issuerUri: ${AUTH_SERVER_URL:http://localhost:38218}/realms/customer1
 
-
-#application:
-#  domain: .mra.io
 server:
   reactive:
     session:
