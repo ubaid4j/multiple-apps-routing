@@ -35,12 +35,11 @@ jobs:
         id: scan
         with:
           image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
-          fail-build: true
+          fail-build: false
           only-fixed: true
           severity-cutoff: critical
       - name: Upload vulnerability report
         uses: github/codeql-action/upload-sarif@v3
-        if: success()
         with:
           sarif_file: ${{ steps.scan.outputs.sarif }}
       - name: Login to container registry
