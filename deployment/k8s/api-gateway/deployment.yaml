@@ -33,6 +33,12 @@ spec:
               value: '80'
             - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_CUSTOMER1_ISSUER_URI
               value: 'http://keycloak/realms/customer1'
+            - name: RED_APP_URL
+              value: http://red-app
+            - name: GREEN_APP_URL
+              value: http://green-app
+            - name: BLUE_APP_URL
+              value: http://blue-app
           livenessProbe:
             httpGet:
               path: /management/health/liveness
