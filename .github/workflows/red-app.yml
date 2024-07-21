@@ -14,7 +14,7 @@ on:
 
 defaults:
   run:
-    working-directory: ./api-gateway
+    working-directory: ./red-app
 
 jobs:
   package:
