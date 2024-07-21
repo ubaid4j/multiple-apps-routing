@@ -20,7 +20,7 @@ spec:
       containers:
         - name: api-gateway
           image: ghcr.io/ubaid4j/multiple-apps-routing/api-gateway:0.0.1-snapshot
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
               protocol: TCP
@@ -42,8 +42,8 @@ spec:
           livenessProbe:
             httpGet:
               path: /management/health/liveness
-              port: 80
+              port: 8080
           readinessProbe:
             httpGet:
               path: /management/health/readiness
-              port: 80      
+              port: 8080    

@@ -3,6 +3,9 @@ kind: Ingress
 metadata:
   name: mra
   namespace: mra
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   ingressClassName: nginx
   tls:
@@ -20,3 +23,14 @@ spec:
                 name: api-gateway
                 port:
                   number: 80
+    - host: 'red.mra.io'
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: api-gateway
+                port:
+                  number: 80
+                  

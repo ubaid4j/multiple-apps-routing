@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: red-app
+  namespace: mra
+  labels:
+    app: red-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: red-app
+  template:
+    metadata:
+      namespace: mra
+      name: red-app
+      labels:
+        app: red-app
+    spec:
+      containers:
+        - name: red-app
+          image: ghcr.io/ubaid4j/multiple-apps-routing/red-app:0.0.1-snapshot
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      restartPolicy: Always
+      

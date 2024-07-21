@@ -19,4 +19,5 @@
 
 ### apps deployment
 1. Deploy api-gateway: `kubectl apply -f api-gateway`
+2. Deploy red-app: `kubectl apply -f red-app`
 
