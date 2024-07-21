@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: mra
+  name: keycloak
+  labels:
+    app: keycloak
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keycloak
+  template:
+    metadata:
+      namespace: mra
+      name: keycloak
+      labels:
+        app: keycloak
+    spec:
+      containers:
+        - name: keycloak
+          image: quay.io/keycloak/keycloak:25.0.1
+          imagePullPolicy: IfNotPresent
+          args: ["start-dev", "--import-realm"]
+          ports:
+            - name: http
+              containerPort: 38218
+            - name: management
+              containerPort: 38217
+          env:
+            - name: KC_DB
+              value: dev-file
+            - name: KEYCLOAK_ADMIN
+              value: admin
+            - name: KEYCLOAK_ADMIN_PASSWORD
+              value: admin
+            - name: KC_FEATURES
+              value: scripts
+            - name: KC_HTTP_PORT
+              value: '38218'
+            - name: KC_HTTP_MANAGEMENT_PORT
+              value: '38217'
+            - name: KC_HEALTH_ENABLED
+              value: 'true'
+#            - name: PROXY_ADDRESS_FORWARDING
+#              value: 'true'
+#            - name: KEYCLOAK_FRONTEND_URL
+#              value: 'https://auth.mra.io'
+            - name: KC_PROXY
+              value: 'edge'
+          livenessProbe:
+            initialDelaySeconds: 90
+            periodSeconds: 5
+            failureThreshold: 5
+            httpGet:
+              path: /health/live
+              port: 38217
+          readinessProbe:
+            periodSeconds: 5
+            initialDelaySeconds: 90
+            failureThreshold: 5
+            httpGet:
+              path: /health/ready
+              port: 38217
+          volumeMounts:
+            - mountPath: /opt/keycloak/data/import
+              name: keycloak
+      volumes:
+        - name: keycloak
+          configMap:
+            name: keycloak

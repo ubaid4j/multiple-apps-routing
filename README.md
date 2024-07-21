@@ -5,7 +5,7 @@ The Idea is to have multiple apps running behind the API-Gateway and implement
 in the api-gateway itself.
 </br>
 </br>
-So, let suppose we have following three UI apps:
+So, let suppose we have the following three UI apps:
 1. RED (Angular) (URL: red.mra.io)
 2. BLUE (thymeleaf) (URL: blue.mra.io)
 3. GREEN (Angular) (URL: green.mra.io)

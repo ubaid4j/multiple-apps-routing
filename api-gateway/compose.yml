@@ -15,6 +15,7 @@ services:
       - KC_HEALTH_ENABLED=true
     ports:
       - "127.0.0.1:38218:38218"
+      - "127.0.0.1:38217:38217"
     healthcheck:
       test: 'bash /opt/keycloak/health-check.sh'
       interval: 5s

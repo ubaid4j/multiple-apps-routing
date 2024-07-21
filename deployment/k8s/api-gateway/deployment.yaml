@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-gateway
+  namespace: mra
+  labels:
+    app: api-gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-gateway
+  template:
+    metadata:
+      name: api-gateway
+      namespace: mra
+      labels:
+        app: api-gateway
+    spec:
+      containers:
+        - name: api-gateway
+          image: ghcr.io/ubaid4j/multiple-apps-routing/api-gateway:0.0.1-snapshot
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: prod
+            - name: SPRING_DATA_REDIS_HOST
+              value: redis
+            - name: SPRING_DATA_REDIS_PORT
+              value: '80'
+            - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_CUSTOMER1_ISSUER_URI
+              value: 'http://keycloak/realms/customer1'
+          livenessProbe:
+            httpGet:
+              path: /management/health/liveness
+              port: 80
+          readinessProbe:
+            httpGet:
+              path: /management/health/readiness
+              port: 80      

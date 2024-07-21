@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mra
+  namespace: mra
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - '*.mra.io'
+      secretName: mra-io-tls
+  rules:
+    - host: '*.mra.io'
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: api-gateway
+                port:
+                  number: 80
